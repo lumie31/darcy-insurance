@@ -2,6 +2,7 @@ import asterisk from '../assets/asterisk.svg';
 import balloons from '../assets/air-balloons.jpeg';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { btnVariants } from '../utils/testimony';
 
 export default function Support() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -10,11 +11,14 @@ export default function Support() {
     offset: ['start end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0.8, 0.4], [1, 0.8]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.4], [0.6, 0.9]);
+  const opacity = useTransform(scrollYProgress, [1, 0.4], [0.5, 1]);
+  const scale = useTransform(scrollYProgress, [0.5, 1], [1, 0.5]);
+
   return (
     <motion.div
-      ref={targetRef}
+      ref={() => {
+        targetRef;
+      }}
       style={{ opacity, scale }}
       className='snap h-[500px] flex px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
     >
@@ -45,7 +49,10 @@ export default function Support() {
             Choose a fund
           </button>
         </div>
-        <img
+        <motion.img
+          initial='hidden'
+          animate='visible'
+          variants={btnVariants}
           width={200}
           src={balloons}
           alt='air balloons'

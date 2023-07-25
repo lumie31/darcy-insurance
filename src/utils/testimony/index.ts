@@ -6,7 +6,6 @@ export const parent = {
     transition: {
       when: 'beforeChildren',
       staggerChildren: 0.3,
-      // duration: 1.2,
       delay: 0.3,
     },
   },
@@ -23,4 +22,15 @@ export const parent = {
 export const child = {
   visible: { opacity: 1, x: 0, transition: { duration: 1, delay: 0.5 } },
   hidden: { opacity: 0, x: 100 },
+};
+
+export const btnVariants = {
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 3,
+    },
+  },
+  hidden: { opacity: 0, scale: 0 },
 };

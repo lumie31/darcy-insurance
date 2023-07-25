@@ -1,44 +1,93 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useAnimation } from 'framer-motion';
+import { useRef, useEffect } from 'react';
+import { btnVariants } from '../utils/testimony';
+import { useInView } from 'react-intersection-observer';
 
 export default function Contact() {
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('visible');
+    }
+  }, [controls, inView]);
+
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ['start end', 'end end'],
   });
 
-  const opacity = useTransform(scrollYProgress, [1, 0.5], [1, 0.8]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.4], [0.5, 1]);
+  const opacity = useTransform(scrollYProgress, [1, 0.9], [1, 0.4]);
+  const scale = useTransform(scrollYProgress, [0.1, 0.4], [0.4, 1]);
 
   return (
     <motion.div
-      ref={targetRef}
+      initial={{ opacity: 0 }}
+      animate={controls}
+      transition={{ duration: 2 }}
+      viewport={{ once: false }}
       style={{ opacity, scale }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.5 }}
-      whileInView={{ opacity: 1 }}
+      ref={(el) => {
+        targetRef;
+        ref(el);
+      }}
       className='snap h-[450px] flex justify-between px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
     >
       <div className='w-[500px] flex flex-col space-y-10'>
         <h2 className='py-2 text-4xl font-heading'>Need numbers?</h2>
         <div className='flex space-x-2 text-white mb-4 text-sm'>
-          <span className='rounded-full px-5 py-2 bg-white text-black'>
+          <motion.span
+            initial='hidden'
+            animate='visible'
+            variants={btnVariants}
+            className='rounded-full px-5 py-2 bg-white text-black'
+          >
             Travel
-          </span>
-          <span className='rounded-full px-5 py-2 bg-[#1f283d]'>Health</span>
-          <span className='rounded-full px-5 py-2 bg-[#1f283d]'>CASCO</span>
-          <span className='rounded-full px-5 py-2 bg-[#1f283d]'>Mortgage</span>
-          <span className='rounded-full px-5 py-2 bg-[#1f283d]'>Fire</span>
+          </motion.span>
+          <motion.span
+            initial='hidden'
+            animate='visible'
+            variants={btnVariants}
+            className='rounded-full px-5 py-2 bg-[#1f283d]'
+          >
+            Health
+          </motion.span>
+          <motion.span
+            initial='hidden'
+            animate='visible'
+            variants={btnVariants}
+            className='rounded-full px-5 py-2 bg-[#1f283d]'
+          >
+            CASCO
+          </motion.span>
+          <motion.span
+            initial='hidden'
+            animate='visible'
+            variants={btnVariants}
+            className='rounded-full px-5 py-2 bg-[#1f283d]'
+          >
+            Mortgage
+          </motion.span>
+          <motion.span
+            initial='hidden'
+            animate='visible'
+            variants={btnVariants}
+            className='rounded-full px-5 py-2 bg-[#1f283d]'
+          >
+            Fire
+          </motion.span>
         </div>
         <form className='flex text-sm space-x-6'>
           <div className='flex flex-col space-y-1'>
             <label htmlFor='' className='text-gray-400'>
               Enter the country
             </label>
-            <input
+            <motion.input
+              initial='hidden'
+              animate='visible'
+              variants={btnVariants}
               type='text'
               placeholder='Australia'
               className='rounded-full px-4 py-3 w-[200px] bg-[#1F283C]'
@@ -48,46 +97,80 @@ export default function Contact() {
             <label htmlFor='' className='text-gray-400'>
               Choose travel dates
             </label>
-            <input
+            <motion.input
+              initial='hidden'
+              animate='visible'
+              variants={btnVariants}
               type='text'
               placeholder='11 Apr - 20 Apr'
               className='rounded-full px-4 py-3 w-[200px] bg-[#1F283C]'
             />
           </div>
         </form>
-        <button className='text-white bg-[#ff6476] rounded-full py-3 w-[450px]'>
+        <motion.button
+          initial='hidden'
+          animate='visible'
+          variants={btnVariants}
+          className='text-white bg-[#ff6476] rounded-full py-3 w-[450px]'
+        >
           Calculate
-        </button>
+        </motion.button>
       </div>
       <div className='w-[400px] flex flex-col space-y-6'>
         <div>
           <h4 className='text-xl font-bold pb-2'>Insurance services</h4>
           <span className='flex space-x-4 text-sm text-gray-400 py-1'>
-            <p>Medical expenses</p>
-            <p>Family health insurance</p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Medical expenses
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Family health insurance
+            </motion.p>
           </span>
           <span className='flex space-x-4 text-sm text-gray-400'>
-            <p>Vehicle loss</p>
-            <p>Property damage</p>
-            <p>Fire</p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Vehicle loss
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Property damage
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Fire
+            </motion.p>
           </span>
         </div>
         <div>
           <h4 className='text-xl font-bold pb-2'>Company</h4>
           <span className='flex space-x-4 text-sm text-gray-400'>
-            <p>About us</p>
-            <p>Career</p>
-            <p>Help</p>
-            <p>FAQ</p>
-            <p>Blog</p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              About us
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Career
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Help
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              FAQ
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Blog
+            </motion.p>
           </span>
         </div>
         <div>
           <h4 className='text-xl font-bold pb-2'>Bonus</h4>
           <span className='flex space-x-4 text-sm text-gray-400'>
-            <p>Gift certificate</p>
-            <p>Affiliate program</p>
-            <p>Trainings</p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Gift certificate
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Affiliate program
+            </motion.p>
+            <motion.p initial='hidden' animate='visible' variants={btnVariants}>
+              Trainings
+            </motion.p>
           </span>
         </div>
       </div>

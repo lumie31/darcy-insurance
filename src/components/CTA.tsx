@@ -1,7 +1,7 @@
 import asterisk from '../assets/asterisk.svg';
 import balloons from '../assets/air-balloons.jpeg';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { parent, child } from '../utils/CTA';
+import { parent, child, btnVariants } from '../utils/CTA';
 import { useRef } from 'react';
 
 export default function CTA() {
@@ -11,7 +11,7 @@ export default function CTA() {
     offset: ['end end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.2]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   return (
@@ -39,8 +39,12 @@ export default function CTA() {
         >
           <motion.span variants={child} className='grow basis-6/12 text-md'>
             <motion.img
-              animate={{ rotate: 180 }}
-              transition={{ from: 90, duration: 3 }}
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                repeatType: 'reverse',
+                duration: 5,
+              }}
               src={asterisk}
               alt='asterisk'
               width={40}
@@ -54,8 +58,12 @@ export default function CTA() {
           </motion.span>
           <motion.span variants={child} className='grow basis-6/12 text-md'>
             <motion.img
-              animate={{ rotate: 180 }}
-              transition={{ from: 90, duration: 5 }}
+              animate={{ rotate: 360 }}
+              transition={{
+                repeat: Infinity,
+                repeatType: 'reverse',
+                duration: 5,
+              }}
               src={asterisk}
               alt='asterisk'
               width={40}
@@ -81,20 +89,9 @@ export default function CTA() {
           </motion.svg>
         </motion.div>
         <motion.img
-          variants={{
-            hidden: { opacity: 0, y: 100 },
-            visible: { opacity: 1, y: 0 },
-          }}
           initial='hidden'
           animate='visible'
-          transition={{
-            duration: 2,
-            ease: 'easeIn',
-            // type: 'spring',
-            stiffness: 100,
-            damping: 30,
-            restDelta: 0.001,
-          }}
+          variants={btnVariants}
           width={180}
           src={balloons}
           alt='air balloons'

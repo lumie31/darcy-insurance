@@ -6,6 +6,7 @@ import {
   cardVariants,
   textVariants,
   spanVariants,
+  btnVariants,
   item,
   cardGroup,
   card,
@@ -24,26 +25,20 @@ export default function Services() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ['end end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0.5, 0.9], [1, 0.2]);
-  const scale = useTransform(scrollYProgress, [0.1, 0.4], [0.8, 1]);
-
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.2]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      animate={controls}
       viewport={{ once: true }}
       style={{ opacity, scale }}
       ref={(el) => {
         targetRef;
         ref(el);
-      }}
-      transition={{
-        type: 'spring',
-        bounce: 0.4,
-        duration: 0.8,
       }}
       className='snap flex flex-col px-10 py-[50px] m-8 bg-[#0b0f17] text-white space-y-6'
     >
@@ -60,7 +55,7 @@ export default function Services() {
           <motion.span
             initial='hidden'
             animate={controls}
-            variants={textVariants}
+            variants={spanVariants}
             className='bg-black rounded-full px-6 py-3 self-end mb-6 ml-6'
           >
             Home insurance
@@ -70,7 +65,9 @@ export default function Services() {
           src={lifebuoy}
           alt='lifebuoy'
           width={180}
-          variants={item}
+          initial='hidden'
+          animate='visible'
+          variants={btnVariants}
           className='img mx-4 rounded-full object-cover object-left-bottom'
         />
         <motion.div

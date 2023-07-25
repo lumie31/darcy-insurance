@@ -1,7 +1,7 @@
 import key from '../assets/key-icon.png';
 import logo from '../assets/lifebuoy.png';
 import { motion } from 'framer-motion';
-import { parent, child } from '../utils/CTA';
+import { btnVariants } from '../utils/CTA';
 
 export default function Header() {
   const list = {
@@ -29,7 +29,7 @@ export default function Header() {
     <header className='h-[120px] bg-gradient-to-b from-[#1f283d] to-[#0b0f17] flex justify-between items-center px-10 py-4 m-8 rounded-t-[3rem] font-sans text-sm text-white'>
       <motion.img
         animate={{ rotate: 180 }}
-        transition={{ repeat: 2, duration: 5 }}
+        transition={{ repeat: Infinity, repeatType: 'reverse', duration: 5 }}
         src={logo}
         alt='lifebuoy image'
         width={50}
@@ -66,19 +66,21 @@ export default function Header() {
         <motion.li variants={item}>Blog</motion.li>
         <motion.li variants={item}>Career</motion.li>
       </motion.ul>
-      <motion.div
-        variants={parent}
-        initial='hidden'
-        animate='visible'
-        className='flex space-x-10'
-      >
+      <motion.div className='flex space-x-10'>
         <motion.button
-          variants={child}
+          initial='hidden'
+          animate='visible'
+          variants={btnVariants}
           className='rounded-full bg-[#84d7e9] px-12 py-4 text-black font-bold'
         >
           Contact us
         </motion.button>
-        <motion.button variants={child} className='flex items-center space-x-2'>
+        <motion.button
+          initial='hidden'
+          animate='visible'
+          variants={btnVariants}
+          className='flex items-center space-x-2'
+        >
           <img src={key} alt='key icon' width={15} />
           <span>Login</span>
         </motion.button>

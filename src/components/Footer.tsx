@@ -10,7 +10,7 @@ export default function Footer() {
           alt='lifebuoy image'
           width={50}
           animate={{ rotate: 180 }}
-          transition={{ repeat: 2, duration: 5 }}
+          transition={{ repeat: Infinity, repeatType: 'reverse', duration: 5 }}
         />
         <span className='ml-4'>Darcy's insurance products</span>
       </div>
