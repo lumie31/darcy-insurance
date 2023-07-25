@@ -1,32 +1,25 @@
 import asterisk from '../assets/asterisk.svg';
 import balloons from '../assets/air-balloons.jpeg';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { parent, child } from '../utils';
+import { useRef } from 'react';
 
 export default function CTA() {
-  const parent = {
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        when: 'beforeChildren',
-        staggerChildren: 0.3,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      x: 100,
-      transition: {
-        when: 'afterChildren',
-      },
-    },
-  };
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['end end', 'end start'],
+  });
 
-  const child = {
-    visible: { opacity: 1, x: 0 },
-    hidden: { opacity: 0, x: -100 },
-  };
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+
   return (
-    <div className='flex px-10 py-[50px] m-8 bg-[#0b0f17] text-white'>
+    <motion.div
+      style={{ opacity, scale }}
+      ref={targetRef}
+      className='snap flex px-10 py-[100px] m-8 bg-[#0b0f17] text-white'
+    >
       <motion.div
         variants={parent}
         initial='hidden'
@@ -44,7 +37,7 @@ export default function CTA() {
           animate='visible'
           className='flex flex-col justify-between grow basis-6/12 space-y-4'
         >
-          <motion.span variants={child} className='grow basis-6/12 text-lg'>
+          <motion.span variants={child} className='grow basis-6/12 text-md'>
             <motion.img
               animate={{ rotate: 180 }}
               transition={{ from: 90, duration: 3 }}
@@ -59,7 +52,7 @@ export default function CTA() {
             <p>policyholders 30% - 60%</p>
             <p>on premiums</p>
           </motion.span>
-          <motion.span variants={child} className='grow basis-6/12 text-lg'>
+          <motion.span variants={child} className='grow basis-6/12 text-md'>
             <motion.img
               animate={{ rotate: 180 }}
               transition={{ from: 90, duration: 5 }}
@@ -87,13 +80,27 @@ export default function CTA() {
             />
           </motion.svg>
         </motion.div>
-        <img
-          width={200}
+        <motion.img
+          variants={{
+            hidden: { opacity: 0, y: 100 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial='hidden'
+          animate='visible'
+          transition={{
+            duration: 2,
+            ease: 'easeIn',
+            // type: 'spring',
+            stiffness: 100,
+            damping: 30,
+            restDelta: 0.001,
+          }}
+          width={180}
           src={balloons}
           alt='air balloons'
-          className='rounded-full ml-8 shadow-xl shadow-[#84d7e9]'
+          className='img rounded-full ml-8 object-cover object-left'
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

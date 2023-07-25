@@ -9,7 +9,7 @@ export default {
       },
       backgroundImage: {
         home: "url('/src/assets/home.jpeg')",
-        vehicle: "url('/src/assets/tesla.jpeg')",
+        vehicle: "url('/src/assets/tesla.avif')",
         mortgage: "url('/src/assets/mortgage.webp')",
         medical: "url('/src/assets/medication.jpeg')",
       },

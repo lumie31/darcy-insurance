@@ -6,9 +6,9 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Testimony from './components/Testimony';
 
-function App() {
+export default function App() {
   return (
-    <>
+    <div className='wrapper'>
       <Header />
       <CTA />
       <Services />
@@ -16,8 +16,6 @@ function App() {
       <Support />
       <Contact />
       <Footer />
-    </>
+    </div>
   );
 }
-
-export default App;

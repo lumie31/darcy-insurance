@@ -1,6 +1,27 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
 export default function Contact() {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const opacity = useTransform(scrollYProgress, [1, 0.5], [1, 0.8]);
+  const scale = useTransform(scrollYProgress, [0.1, 0.4], [0.5, 1]);
+
   return (
-    <div className='h-[450px] flex justify-between px-10 py-[50px] m-8 bg-[#0b0f17] text-white'>
+    <motion.div
+      ref={targetRef}
+      style={{ opacity, scale }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1 }}
+      className='h-[450px] flex justify-between px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
+    >
       <div className='w-[500px] flex flex-col space-y-10'>
         <h2 className='py-2 text-4xl font-heading'>Need numbers?</h2>
         <div className='flex space-x-2 text-white mb-4 text-sm'>
@@ -14,7 +35,9 @@ export default function Contact() {
         </div>
         <form className='flex text-sm space-x-6'>
           <div className='flex flex-col space-y-1'>
-            <label htmlFor=''>Enter the country</label>
+            <label htmlFor='' className='text-gray-400'>
+              Enter the country
+            </label>
             <input
               type='text'
               placeholder='Australia'
@@ -22,7 +45,9 @@ export default function Contact() {
             />
           </div>
           <div className='flex flex-col space-y-1'>
-            <label htmlFor=''>Choose travel dates</label>
+            <label htmlFor='' className='text-gray-400'>
+              Choose travel dates
+            </label>
             <input
               type='text'
               placeholder='11 Apr - 20 Apr'
@@ -30,13 +55,13 @@ export default function Contact() {
             />
           </div>
         </form>
-        <button className='text-white bg-[#ff6476] rounded-full px-5 py-3  w-[350px]'>
+        <button className='text-white bg-[#ff6476] rounded-full py-3 w-[450px]'>
           Calculate
         </button>
       </div>
       <div className='w-[400px] flex flex-col space-y-6'>
         <div>
-          <h4 className='text-3xl font-extrabold'>Insurance services</h4>
+          <h4 className='text-xl font-bold pb-2'>Insurance services</h4>
           <span className='flex space-x-4 text-sm text-gray-400 py-1'>
             <p>Medical expenses</p>
             <p>Family health insurance</p>
@@ -48,7 +73,7 @@ export default function Contact() {
           </span>
         </div>
         <div>
-          <h4 className='text-3xl font-extrabold'>Company</h4>
+          <h4 className='text-xl font-bold pb-2'>Company</h4>
           <span className='flex space-x-4 text-sm text-gray-400'>
             <p>About us</p>
             <p>Career</p>
@@ -58,7 +83,7 @@ export default function Contact() {
           </span>
         </div>
         <div>
-          <h4 className='text-2xl font-bold'>Bonus</h4>
+          <h4 className='text-xl font-bold pb-2'>Bonus</h4>
           <span className='flex space-x-4 text-sm text-gray-400'>
             <p>Gift certificate</p>
             <p>Affiliate program</p>
@@ -66,6 +91,6 @@ export default function Contact() {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
