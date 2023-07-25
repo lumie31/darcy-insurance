@@ -1,7 +1,7 @@
 import key from '../assets/key-icon.png';
 import logo from '../assets/lifebuoy.png';
 import { motion } from 'framer-motion';
-import { parent, child } from '../utils';
+import { parent, child } from '../utils/CTA';
 
 export default function Header() {
   const list = {

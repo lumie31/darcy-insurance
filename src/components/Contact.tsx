@@ -20,7 +20,7 @@ export default function Contact() {
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.5 }}
       whileInView={{ opacity: 1 }}
-      className='h-[450px] flex justify-between px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
+      className='snap h-[450px] flex justify-between px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
     >
       <div className='w-[500px] flex flex-col space-y-10'>
         <h2 className='py-2 text-4xl font-heading'>Need numbers?</h2>

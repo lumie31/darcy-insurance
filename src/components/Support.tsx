@@ -16,7 +16,7 @@ export default function Support() {
     <motion.div
       ref={targetRef}
       style={{ opacity, scale }}
-      className='h-[500px] flex px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
+      className='snap h-[500px] flex px-10 py-[50px] m-8 bg-[#0b0f17] text-white'
     >
       <div className='grow basis-3/3 font-heading'>
         <h2 className='text-5xl'>Support</h2>

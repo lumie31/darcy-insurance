@@ -1,7 +1,7 @@
 import asterisk from '../assets/asterisk.svg';
 import balloons from '../assets/air-balloons.jpeg';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { parent, child } from '../utils';
+import { parent, child } from '../utils/CTA';
 import { useRef } from 'react';
 
 export default function CTA() {
@@ -11,14 +11,14 @@ export default function CTA() {
     offset: ['end end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   return (
     <motion.div
       style={{ opacity, scale }}
       ref={targetRef}
-      className='snap flex px-10 py-[100px] m-8 bg-[#0b0f17] text-white'
+      className='h-[75vh] snap flex px-10 py-[100px] m-8 bg-[#0b0f17] text-white'
     >
       <motion.div
         variants={parent}
